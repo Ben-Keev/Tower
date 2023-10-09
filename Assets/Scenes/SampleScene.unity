@@ -2636,8 +2636,8 @@ GameObject:
   - component: {fileID: 1083585788}
   - component: {fileID: 1083585792}
   - component: {fileID: 1083585791}
-  - component: {fileID: 1083585793}
   - component: {fileID: 1083585794}
+  - component: {fileID: 1083585795}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2727,9 +2727,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1083585787}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.07, y: -3.16, z: 0}
+  m_LocalPosition: {x: -5.02, y: -3.23, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -2759,7 +2759,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &1083585792
 BoxCollider2D:
@@ -2807,22 +2807,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.2151127, y: 1.850574}
   m_EdgeRadius: 0
---- !u!114 &1083585793
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1083585787}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bee772c0f777cab40bc2eedca040d0f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 10
-  animator: {fileID: 0}
-  rb: {fileID: 0}
-  playerInput: {fileID: 0}
 --- !u!114 &1083585794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2853,3 +2837,22 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &1083585795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1083585787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f2515b12a8231047807b8a59780930e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  jumpHeight: 12.5
+  gravityScale: 2.2
+  fallingGravityScale: 3.5
+  animator: {fileID: 0}
+  rb: {fileID: 0}
+  playerInput: {fileID: 0}
