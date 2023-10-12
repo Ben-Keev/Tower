@@ -2700,7 +2700,7 @@ Transform:
   m_GameObject: {fileID: 1083585787}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.45, y: 1.07, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -2775,14 +2775,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f2515b12a8231047807b8a59780930e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedGround: 10
+  speedGround: 7
   speedFractionAir: 0.75
-  jumpHeight: 12.5
+  jumpHeight: 11
   gravityScale: 2.2
   fallingGravityScale: 3.5
-  animator: {fileID: 0}
-  rb: {fileID: 0}
-  playerInput: {fileID: 0}
 --- !u!70 &1083585796
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -2793,7 +2790,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 8d602faec337d5841b1105952512a746, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
