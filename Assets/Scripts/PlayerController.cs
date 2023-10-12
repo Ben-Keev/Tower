@@ -59,6 +59,7 @@ public class PlayerController : MonoBehaviour
     private void Movement() {
         //  Action from new input system
         float horizontalInput = playerInput.actions["Move"].ReadValue<Vector2>().x;
+        animator.SetBool("Walk", horizontalInput !=0);
 
         if (!grounded) {
             // Move the player Character slower in the air
