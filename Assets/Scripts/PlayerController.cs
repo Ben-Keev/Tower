@@ -7,8 +7,11 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [Header("Speed")]
+    [Header("Spawn")]
+    public float spawnX = -5;
+    private float spawnY = -3;
 
+    [Header("Speed")]
     public float speedGround = 10f;
     [Tooltip("Fraction that ground speed will be reduced by when in air")]
     public float speedFractionAir = 0.75f;
@@ -27,20 +30,21 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private PlayerInput playerInput;
 
+    // https://blog.yarsalabs.com/player-movement-with-new-input-system-in-unity/
+    // Take direction from auto-generated script
+    private PlayerInputControls inputRef;
+    private float direction = 0;
+
     private bool grounded = false;
 
+    // First function to run
     private void Awake() {
         animator = GetComponent<Animator>();
         playerInput = GetComponent<PlayerInput>();
         rb = GetComponent<Rigidbody2D>();
-    }
 
-    
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+        // Take player to spawn location
+        transform.position = new Vector2(spawnX, spawnY);
     }
 
     // Update is called once per frame
@@ -67,9 +71,12 @@ public class PlayerController : MonoBehaviour
     private void Movement() {
         //  Action from new input system
         float horizontalInput = playerInput.actions["Move"].ReadValue<Vector2>().x;
+        Debug.Log("Current input: "+ playerInput.actions["Move"].ReadValue<Vector2>().x);
 
-        // This anim plays if the player is grounded
+        // plays if the player is grounded
         animator.SetBool("Walk", horizontalInput !=0);
+        // Sets the speed of the animation
+        animator.SetFloat("Analogue", horizontalInput);
 
         if (!grounded) {
             // Move the player Character slower in the air
