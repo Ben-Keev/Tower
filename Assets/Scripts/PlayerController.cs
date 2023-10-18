@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [Header("Spawn")]
+    // Use serialise field here.
     public float spawnX = -5;
     private float spawnY = -3;
 
@@ -37,7 +38,7 @@ public class PlayerController : MonoBehaviour
 
     private bool grounded = false;
 
-    private void StartFunctions() {
+    private void Start() {
         animator = GetComponent<Animator>();
         playerInput = GetComponent<PlayerInput>();
         rb = GetComponent<Rigidbody2D>();
@@ -45,8 +46,6 @@ public class PlayerController : MonoBehaviour
 
     // First function to run
     private void Awake() {
-        StartFunctions();
-
         // Take player to spawn location
         transform.position = new Vector2(spawnX, spawnY);
     }
@@ -54,7 +53,7 @@ public class PlayerController : MonoBehaviour
     private void JumpHandle() {
         bool jump = playerInput.actions["Jump"].WasPressedThisFrame();
 
-        if(jump) Jump();
+        if(jump && grounded) Jump();
     }
 
     private void GravityHandle() {
@@ -105,5 +104,18 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(Vector2.up * jumpHeight, ForceMode2D.Impulse);
         //rb.AddForce(Vector2.right * speedGround, ForceMode2D.Impulse);
         animator.SetTrigger("Jump");
+    }
+
+    //https://www.youtube.com/watch?v=P_6W-36QfLA
+    private void OnCollisionEnter2D(Collision2D other) {
+        if (other.gameObject.CompareTag("Ground")) {
+            grounded = true;
+        }
+    }
+    
+    private void OnCollisionExit2D(Collision2D other) {
+        if (other.gameObject.CompareTag("Ground")) {
+            grounded = false;
+        }
     }
 }
