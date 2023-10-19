@@ -3905,6 +3905,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: af591f816a784af4ca78dab5ecd4a9f9, type: 2}
   - {fileID: 11400000, guid: 7fbff8c58337bbd4e9f0b5afc4c95a8b, type: 2}
   - {fileID: 11400000, guid: 8b9e62fcd3093ca4a96736ac85d20821, type: 2}
+  temp: {fileID: 1130714431}
+  seek:
+    m_Position: {x: 0, y: 0, z: 0}
+    m_Size: {x: 30, y: 30, z: 30}
 --- !u!4 &1928201836
 Transform:
   m_ObjectHideFlags: 0
