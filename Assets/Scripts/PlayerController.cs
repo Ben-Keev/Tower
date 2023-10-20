@@ -33,7 +33,6 @@ public class PlayerController : MonoBehaviour
 
     // https://blog.yarsalabs.com/player-movement-with-new-input-system-in-unity/
     // Take direction from auto-generated script
-    private PlayerInputControls inputRef;
     private float direction = 0;
 
     private bool grounded = false;

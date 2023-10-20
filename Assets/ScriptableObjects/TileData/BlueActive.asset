@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa92115637d21c54f976dd9e42f5f835, type: 3}
-  m_Name: RedInactive
+  m_Name: BlueActive
   m_EditorClassIdentifier: 
-  tile: {fileID: 11400000, guid: fc4ca66622835ca45878b1d709eb5243, type: 2}
-  colour: 0
-  active: 0
+  tile: {fileID: 11400000, guid: d09990a3948151043a1566e3798eed1d, type: 2}
+  colour: 1
+  active: 1
+  worldPosition: {x: -7, y: -8, z: 0}
