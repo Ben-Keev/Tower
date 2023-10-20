@@ -8,24 +8,29 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [Header("Spawn")]
-    // Use serialise field here.
-    public float spawnX = -5;
-    private float spawnY = -3;
+    [SerializeField] private float spawnX = -5;
+    [SerializeField] private float spawnY = -3;
+
+    [Header("Blocks")]
+    [Tooltip("First map colour player may control")]
+    [SerializeField] private Colour colourOne = Colour.Red;
+    [Tooltip("Second map colour player may control")]
+    [SerializeField] private Colour colourTwo = Colour.Blue;
 
     [Header("Speed")]
-    public float speedGround = 10f;
+    [SerializeField] private float speedGround = 10f;
     [Tooltip("Fraction that ground speed will be reduced by when in air")]
-    public float speedFractionAir = 0.75f;
+    [SerializeField] private float speedFractionAir = 0.75f;
 
     [Header("Jump")]
-    public float jumpHeight = 10f;
+    [SerializeField] private float jumpHeight = 10f;
 
     [Header("Gravity")]
     
-    public float gravityScale = 10f;
+    [SerializeField] private float gravityScale = 10f;
 
     [Tooltip("How fast the player falls, separate from their gravity when jumping")]
-    public float fallingGravityScale = 20f;
+    [SerializeField] private float fallingGravityScale = 20f;
 
     private Animator animator;
     private Rigidbody2D rb;
@@ -55,6 +60,17 @@ public class PlayerController : MonoBehaviour
         if(jump && grounded) Jump();
     }
 
+    private void BlockSwapHandle() {
+        bool blockSwap = playerInput.actions["BlockSwap"].WasPressedThisFrame();
+
+        if(blockSwap) BlockSwap(colourOne, colourTwo);
+    }
+
+    private void BlockSwap(Colour colourOne, Colour colourTwo) {
+        MapManager.instance.SwitchTileState(colourOne);
+        MapManager.instance.SwitchTileState(colourTwo);
+    }
+
     private void GravityHandle() {
         // Player is rising, gravity scale is set lower.
         if(rb.velocity.y >= 0)
@@ -76,6 +92,7 @@ public class PlayerController : MonoBehaviour
     void Update() {
         JumpHandle();
         GravityHandle();
+        BlockSwapHandle();
     }
 
     private void Movement() {

@@ -18,7 +18,15 @@ PrefabInstance:
       objectReference: {fileID: 22100000, guid: a9c14d666c4d67d489e8cc8442d2cffc, type: 2}
     - target: {fileID: 3647532279039016441, guid: cc0bbe136a4f460409b2c232719345ba, type: 3}
       propertyPath: spawnX
-      value: 5
+      value: 5.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3647532279039016441, guid: cc0bbe136a4f460409b2c232719345ba, type: 3}
+      propertyPath: colourOne
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3647532279039016441, guid: cc0bbe136a4f460409b2c232719345ba, type: 3}
+      propertyPath: colourTwo
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5038044449644697284, guid: cc0bbe136a4f460409b2c232719345ba, type: 3}
       propertyPath: m_RootOrder
@@ -70,7 +78,11 @@ PrefabInstance:
       objectReference: {fileID: -7016460953717803456, guid: aa4bba59eab632d4ab2a02491f0a4f9a, type: 3}
     - target: {fileID: 6847960874041364661, guid: cc0bbe136a4f460409b2c232719345ba, type: 3}
       propertyPath: x
-      value: 5
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8293501721210680816, guid: cc0bbe136a4f460409b2c232719345ba, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

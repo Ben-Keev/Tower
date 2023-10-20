@@ -7,6 +7,10 @@ using UnityEngine.UIElements;
 
 public class MapManager : MonoBehaviour
 {    
+    // https://github.com/naoisecollins/GD2a-PlayerController/blob/main/Assets/Scripts/AudioManager.cs
+    // Instansiate singleton
+    public static MapManager instance;
+
     //https://www.youtube.com/watch?v=XIqtZnqutGg&t=59s
     [SerializeField] private Tilemap[] maps;
 
@@ -14,14 +18,10 @@ public class MapManager : MonoBehaviour
     [SerializeField] private TileBase[] tiles;
 
     // List of all tile data scriptableObjects created
-    [SerializeField] List<TileData> tileDatas;
+    [SerializeField] private List<TileData>  tileDatas;
 
     // Link each tile to its data, making it accessible to scripts
     private Dictionary<TileBase, TileData> dataFromTiles;
-
-    public Tilemap temp;
-
-    public BoundsInt seek;
 
     private void PopulateDictionary()
     {
@@ -34,21 +34,37 @@ public class MapManager : MonoBehaviour
         }
     }
 
+    // https://github.com/naoisecollins/GD2a-PlayerController/blob/main/Assets/Scripts/AudioManager.cs
+    private void initSingleton() {
+        if(instance == null)
+        {
+            instance = this; 
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+    }
+
+    // Turn one set of blocks for each player on
+    private void initBlocks(Colour colourOne, Colour colourTwo) {
+        SwitchTileState(colourOne);
+        SwitchTileState(colourTwo);
+    }
+
     // Fill in the dictionary
     private void Awake()
     {
         PopulateDictionary();
-        foreach(var tile in tiles)
-        {
-            Debug.Log("This is a " + dataFromTiles[tile].colour + " and it is" + dataFromTiles[tile].active);
-        }
-
-        //SwitchTileState(Colour.Red);
+        initSingleton();
+        initBlocks(Colour.Red, Colour.Green);
     }
 
     // Switch tiles based on colour specified and what state.
     // https://docs.unity3d.com/ScriptReference/Tilemaps.Tilemap.SwapTile.html
-    void SwitchTileState(Colour colour)
+    public void SwitchTileState(Colour colour)
     {
         Tilemap map = getTilemapOnColour(colour);
         TilemapCollider2D mapCollision = map.GetComponent<TilemapCollider2D>();
@@ -75,6 +91,7 @@ public class MapManager : MonoBehaviour
         foreach (var map in maps) {
             mapData = map.GetComponent<MapData>();
             if (mapData.colour == colour) {
+                Debug.Log(map);
                 return map;
             }
         }
@@ -93,6 +110,7 @@ public class MapManager : MonoBehaviour
                 Vector3Int cellPosition = map.WorldToCell(dataFromTiles[tile].worldPosition);
                 // The tile that must be changed is the one currently placed in the world.
                 // iterating is redundant and possibly harmful
+                Debug.Log(map.GetTile(cellPosition));
                 return map.GetTile(cellPosition);
             }
         }
@@ -103,13 +121,17 @@ public class MapManager : MonoBehaviour
 
     // Gets a tile of inverse active state.
     private TileBase getInverseTile(TileBase tileChange) {
-        foreach (var tile in tiles)
-        {
-            // Active state must be opposite from tile we wish to change.
-            if (dataFromTiles[tile].colour == dataFromTiles[tileChange].colour && dataFromTiles[tile].active == !dataFromTiles[tileChange].active)
+
+        // Prevents error if function is called in a scene without a set of coloured blocks
+        if (tileChange != null) {
+            foreach (var tile in tiles)
             {
-                // iterating is redundant
-                return tile;
+                // Active state must be opposite from tile we wish to change.
+                if (dataFromTiles[tile].colour == dataFromTiles[tileChange].colour && dataFromTiles[tile].active == !dataFromTiles[tileChange].active)
+                {
+                    // iterating is redundant
+                    return tile;
+                }
             }
         }
 
