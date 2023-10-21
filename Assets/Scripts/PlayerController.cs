@@ -25,6 +25,13 @@ public class PlayerController : MonoBehaviour
     [Header("Jump")]
     [SerializeField] private float jumpHeight = 10f;
 
+    // https://github.com/naoisecollins/GD2a-PlayerController/blob/main/Assets/Scripts/RefactoredAdvancedPlayerMovement.cs
+    [Header("Ground")]
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private Transform groundCheckPoint;
+    [SerializeField] private float groundCheckRadius = 0.2f;
+    private bool grounded = false;
+
     [Header("Gravity")]
     
     [SerializeField] private float gravityScale = 10f;
@@ -36,11 +43,10 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private PlayerInput playerInput;
 
-    // https://blog.yarsalabs.com/player-movement-with-new-input-system-in-unity/
-    // Take direction from auto-generated script
-    private float direction = 0;
+    // https://blog.yarsalabs.com/player-movement-with-new-input-system-in-unity
 
-    private bool grounded = false;
+    private bool facingRight = true;
+    
 
     private void Start() {
         animator = GetComponent<Animator>();
@@ -52,6 +58,8 @@ public class PlayerController : MonoBehaviour
     private void Awake() {
         // Take player to spawn location
         transform.position = new Vector2(spawnX, spawnY);
+        // Adjust groundCheckpoint
+        
     }
 
     private void JumpHandle() {
@@ -86,6 +94,8 @@ public class PlayerController : MonoBehaviour
     }
 
     void FixedUpdate() {
+        grounded = IsGrounded();
+        Debug.Log(grounded);
         Movement();
     }
 
@@ -93,17 +103,24 @@ public class PlayerController : MonoBehaviour
         JumpHandle();
         GravityHandle();
         BlockSwapHandle();
+        animator.SetBool("Rising", rb.velocity.y > 0);
     }
 
     private void Movement() {
         //  Action from new input system
         float horizontalInput = playerInput.actions["Move"].ReadValue<Vector2>().x;
-        //Debug.Log("Current input: "+ playerInput.actions["Move"].ReadValue<Vector2>().x);
+        
+        // Moving left when facing right or moving right while facing left
+        if (horizontalInput < 0 && facingRight || horizontalInput > 0 && !facingRight) {
+            Flip();
+        }
 
         // plays if the player is grounded
         animator.SetBool("Walk", horizontalInput !=0);
         // Sets the speed of the animation
         animator.SetFloat("Analogue", horizontalInput);
+
+        animator.SetBool("Falling", !grounded);
 
         if (!grounded) {
             // Move the player Character slower in the air
@@ -122,16 +139,36 @@ public class PlayerController : MonoBehaviour
         animator.SetTrigger("Jump");
     }
 
+    // https://github.com/naoisecollins/GD2a-PlayerController/blob/main/Assets/Scripts/RefactoredAdvancedPlayerMovement.cs
+    private void Flip() {
+        // Flip the player's scale on the x axis
+        Vector3 currentScale = gameObject.transform.localScale;
+        currentScale.x *= -1;
+        gameObject.transform.localScale = currentScale;
+        facingRight = !facingRight;
+    }
+
+    // https://github.com/naoisecollins/GD2a-PlayerController/blob/main/Assets/Scripts/RefactoredAdvancedPlayerMovement.cs
+    private bool IsGrounded()
+    {
+        return Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, groundLayer);
+    }
+
+    void OnDrawGizmosSelected() {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(groundCheckPoint.position, groundCheckRadius);
+    }
+
     //https://www.youtube.com/watch?v=P_6W-36QfLA
-    private void OnCollisionEnter2D(Collision2D other) {
-        if (other.gameObject.CompareTag("Ground")) {
-            grounded = true;
-        }
-    }
+    //private void OnCollisionEnter2D(Collision2D other) {
+    //    if (other.gameObject.CompareTag("Ground")) {
+    //        grounded = true;
+    //    }
+    //}
     
-    private void OnCollisionExit2D(Collision2D other) {
-        if (other.gameObject.CompareTag("Ground")) {
-            grounded = false;
-        }
-    }
+    //private void OnCollisionExit2D(Collision2D other) {
+    //    if (other.gameObject.CompareTag("Ground")) {
+    //        grounded = false;
+    //    }
+    //}
 }

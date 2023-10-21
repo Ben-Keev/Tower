@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 22100000, guid: a9c14d666c4d67d489e8cc8442d2cffc, type: 2}
+    - target: {fileID: 2235634132790361252, guid: cc0bbe136a4f460409b2c232719345ba, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 8d602faec337d5841b1105952512a746, type: 2}
     - target: {fileID: 3647532279039016441, guid: cc0bbe136a4f460409b2c232719345ba, type: 3}
       propertyPath: spawnX
       value: 5.5

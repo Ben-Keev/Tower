@@ -15,4 +15,4 @@ MonoBehaviour:
   tile: {fileID: 11400000, guid: b82b220f3fb98e643a23e31a3a400964, type: 2}
   colour: 3
   active: 1
-  worldPosition: {x: -5, y: -8, z: 0}
+  worldPosition: {x: -5, y: -9, z: 0}

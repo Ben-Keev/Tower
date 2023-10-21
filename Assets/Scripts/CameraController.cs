@@ -21,8 +21,8 @@ public class CameraController : MonoBehaviour
             // Follows the player's Y constantly.
             target.position.y + offset,
             z
-            );
-        }
+        );
+    }
 
     
 }

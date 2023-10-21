@@ -91,7 +91,6 @@ public class MapManager : MonoBehaviour
         foreach (var map in maps) {
             mapData = map.GetComponent<MapData>();
             if (mapData.colour == colour) {
-                Debug.Log(map);
                 return map;
             }
         }
@@ -110,7 +109,6 @@ public class MapManager : MonoBehaviour
                 Vector3Int cellPosition = map.WorldToCell(dataFromTiles[tile].worldPosition);
                 // The tile that must be changed is the one currently placed in the world.
                 // iterating is redundant and possibly harmful
-                Debug.Log(map.GetTile(cellPosition));
                 return map.GetTile(cellPosition);
             }
         }
