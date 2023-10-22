@@ -46,6 +46,10 @@ GameObject:
   - component: {fileID: 3647532279039016441}
   - component: {fileID: 5338474647228028454}
   - component: {fileID: 2235634132790361252}
+  - component: {fileID: 7987595513249993975}
+  - component: {fileID: 1517608309945946326}
+  - component: {fileID: 6970589309074142731}
+  - component: {fileID: 5230307005829878740}
   m_Layer: 0
   m_Name: Player 1
   m_TagString: Untagged
@@ -188,18 +192,7 @@ MonoBehaviour:
   spawnY: -3
   colourOne: 0
   colourTwo: 1
-  speedGround: 5
-  speedFractionAir: 0.75
-  jumpHeight: 11
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  groundCheckPoint: {fileID: 9212137374291796224}
-  groundCheckRadius: 0.2
-  gravityScale: 2.6
-  fallingGravityScale: 3.5
-  deathBoxSize: {x: 0.33, y: 0.88}
-  deathBoxCenter: {fileID: 9098911060060733701}
+  grounded: 0
 --- !u!114 &5338474647228028454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,6 +269,66 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.6962162, y: 1.8263434}
   m_EdgeRadius: 0
+--- !u!114 &7987595513249993975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1867954449473211357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b51bdf626ce29cf408e4ffc8190d7103, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  groundCheckPoint: {fileID: 9212137374291796224}
+  groundCheckRadius: 0.2
+  deathBoxSize: {x: 0.3, y: 0.78}
+  deathBoxCenter: {fileID: 9098911060060733701}
+--- !u!114 &1517608309945946326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1867954449473211357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e37ab18091054940b41f2fe21d84479, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6970589309074142731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1867954449473211357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdcc87beea73d104d930490e9ae7471f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5230307005829878740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1867954449473211357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c359ae384daeab4dba39a08b273c8ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedGround: 5
+  speedFractionAir: 0.75
+  jumpHeight: 10
+  gravityScale: 2.6
+  fallingGravityScale: 3.5
 --- !u!1 &3086498377297518886
 GameObject:
   m_ObjectHideFlags: 0
