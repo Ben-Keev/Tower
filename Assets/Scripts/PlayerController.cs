@@ -77,6 +77,10 @@ public class PlayerController : MonoBehaviour
     private void BlockSwap(Colour colourOne, Colour colourTwo) {
         MapManager.instance.SwitchTileState(colourOne);
         MapManager.instance.SwitchTileState(colourTwo);
+
+        // ColourTwo will be activated first. Thus, trigger its particles
+        ParticleSpawner.instance.SpawnParticle(colourOne);
+        ParticleSpawner.instance.SpawnParticle(colourTwo);
     }
 
     private void GravityHandle() {
@@ -95,7 +99,6 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate() {
         grounded = IsGrounded();
-        Debug.Log(grounded);
         Movement();
     }
 

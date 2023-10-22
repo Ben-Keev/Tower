@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Android;
 using UnityEngine.Tilemaps;
@@ -57,8 +58,8 @@ public class MapManager : MonoBehaviour
     // Fill in the dictionary
     private void Awake()
     {
-        PopulateDictionary();
         initSingleton();
+        PopulateDictionary();
         initBlocks(Colour.Red, Colour.Green);
     }
 
@@ -82,8 +83,8 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    //Returns a tilemap based on a colour
-    private Tilemap getTilemapOnColour(Colour colour) {
+    //Returns a tilemap based on a colour. Also used in particlespawner.
+    public Tilemap getTilemapOnColour(Colour colour) {
 
         // Using MapData class
         MapData mapData;
@@ -135,5 +136,44 @@ public class MapManager : MonoBehaviour
 
         // This should never happen. Added to prevent errors.
         return null;
+    }
+
+    // https://docs.unity3d.com/2017.2/Documentation/ScriptReference/Tilemaps.Tilemap.GetTilesBlock.html
+    // https://docs.unity3d.com/2017.2/Documentation/ScriptReference/Tilemaps.Tilemap-cellBounds.html,  https://docs.unity3d.com/ScriptReference/BoundsInt-allPositionsWithin.html
+    // https://www.c-sharpcorner.com/article/what-is-the-difference-between-c-sharp-array-and-c-sharp-list/
+
+    public List<Vector3Int> getBlockCellPositions(Colour colour) {
+        
+        List<Vector3Int> positions = new List<Vector3Int>();
+        Tilemap map = getTilemapOnColour(colour);
+        
+        // Iterate every position that exists within the tilemap's bounds
+        foreach (var cellPosition in map.cellBounds.allPositionsWithin) {
+            // Check whether or not there is a tile there
+            if (map.GetTile(cellPosition) != null) {
+                // Add its position
+                positions.Add(cellPosition);
+            }
+        }
+
+        return positions;
+    }
+
+    // Converts Cellpositions to worldpositions
+    // https://docs.unity3d.com/ScriptReference/Tilemaps.Tilemap.GetCellCenterWorld.html
+    public List<Vector3> getBlockWorldPositions(Colour colour)
+    {
+        Tilemap map = getTilemapOnColour(colour);
+        List<Vector3Int> listInt = getBlockCellPositions(colour);
+        List<Vector3> listConvert = new List<Vector3>();
+        Vector3 worldposition;
+
+        foreach (Vector3Int cellposition in listInt)
+        {
+            worldposition = map.GetCellCenterWorld(cellposition);
+            listConvert.Add(worldposition);
+        }
+
+        return listConvert;
     }
 }
