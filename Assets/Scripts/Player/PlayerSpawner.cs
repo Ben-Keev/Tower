@@ -66,6 +66,8 @@ public class PlayerSpawner : MonoBehaviour
     {
         dead = true;
 
+        AudioManager.instance.PlayPlayerSound("Die");
+
         // Disable sprite
         renderer.enabled = false;
 

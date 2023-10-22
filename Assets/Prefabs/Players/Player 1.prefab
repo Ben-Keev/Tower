@@ -497,7 +497,7 @@ MonoBehaviour:
   target: {fileID: 5038044449644697284}
   x: -4.5
   z: -10
-  offset: 1
+  offset: 2
 --- !u!1 &6322951791560880704
 GameObject:
   m_ObjectHideFlags: 0

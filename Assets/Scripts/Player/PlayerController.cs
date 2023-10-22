@@ -39,13 +39,14 @@ public class PlayerController : MonoBehaviour
         playerAnimator.RisingFallingAnim(grounded, rb.velocity.y);
     }
 
-    void Update() 
+    void Update()
     {
         pp.GravityHandle(rb);
     }
 
     public void BlockSwap()
     {
+        AudioManager.instance.PlayPlayerSound("Switch");
         MapManager.instance.SwitchTileState(colourOne);
         MapManager.instance.SwitchTileState(colourTwo);
 
@@ -56,6 +57,7 @@ public class PlayerController : MonoBehaviour
 
     public void Movement(float horizontalInput) {
         playerAnimator.WalkAnim(horizontalInput);
+        AudioManager.instance.PlayPlayerSound("Footstep");
 
         // Moving left when facing right or moving right while facing left
         if (horizontalInput < 0 && facingRight || horizontalInput > 0 && !facingRight) {
@@ -79,5 +81,6 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(Vector2.up * pp.jumpHeight, ForceMode2D.Impulse);
         //rb.AddForce(Vector2.right * speedGround, ForceMode2D.Impulse);
         playerAnimator.JumpAnim();
+        AudioManager.instance.PlayPlayerSound("Jump");
     }
 }

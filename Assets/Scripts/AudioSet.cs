@@ -12,17 +12,16 @@ public class AudioSet : ScriptableObject
     [Tooltip("Place clip names here")]
     [SerializeField] private List<string> clipNames;
 
-    public Dictionary<string, AudioClip> audioDictionary;
-    private void PopulateDictionary()
+    
+    public Dictionary<string, AudioClip> PopulateDictionary()
     {
+        Dictionary<string, AudioClip> audioDictionary = new Dictionary<string, AudioClip>();
+
         for(int i = 0; i < clips.Count; i++)
         {
-            audioDictionary.Add(clips[i].name, clips[i]);
+            audioDictionary.Add(clipNames[i], clips[i]);
         }
-    }
 
-    public void Start()
-    {
-        PopulateDictionary();
+        return audioDictionary;
     }
 }

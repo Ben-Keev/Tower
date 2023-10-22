@@ -40,7 +40,11 @@ public class PlayerAnimator : MonoBehaviour
     public void RisingFallingAnim(bool grounded, float velocityY)
     {
         animator.SetBool("Rising", velocityY > 0);
-        
+
+        // Play bump sound effect.
+        if (!grounded && velocityY == 0)
+        AudioManager.instance.PlayPlayerSound("Bump");
+
         animator.SetBool("Falling", !grounded && velocityY == 0);
 
         // Continues falling animation while not grounded.
