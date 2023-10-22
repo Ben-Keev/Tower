@@ -12,4 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f9be1ac7e55a0a488f299e52d8916fd, type: 3}
   m_Name: PlayerAudio
   m_EditorClassIdentifier: 
-  clipList: []
+  clips:
+  - {fileID: 8300000, guid: 476c027b9371c224f8d20cbbd55b9133, type: 3}
+  - {fileID: 0}
+  - {fileID: 8300000, guid: 8a3029954b685ba4c8d22fa0b25dbcbc, type: 3}
+  - {fileID: 0}
+  - {fileID: 8300000, guid: abf53b4690d198744a43f9a21e9aef07, type: 3}
+  clipNames:
+  - Jump
+  - Footstep
+  - Bump
+  - Die
+  - Switch

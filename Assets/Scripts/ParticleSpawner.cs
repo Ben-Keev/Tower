@@ -1,8 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UIElements;
+using Color = UnityEngine.Color;
 
 // https://github.com/naoisecollins/GD2a-PlayerController/blob/main/Assets/Scripts/EnemySpawner.cs
 public class ParticleSpawner : MonoBehaviour
@@ -65,7 +68,7 @@ public class ParticleSpawner : MonoBehaviour
     }
 
     // https://github.com/naoisecollins/GD2a-PlayerController/blob/main/Assets/Scripts/EnemySpawner.cs
-    public void SpawnParticle(Colour colour) 
+    public void SpawnParticlesAtBlocks(Colour colour) 
     {
         List<Vector3> positions = vectorDictionary[colour];
         GameObject spawnedParticle;
@@ -84,4 +87,14 @@ public class ParticleSpawner : MonoBehaviour
             psMain.startColor = color;
         }
     }
+
+    // This method is not tied to blocks, so it uses Color.
+    public void SpawnParticleAtWorldPosition(GameObject particlePrefab, Color color, Vector2 position)
+    {
+        GameObject spawnedParticle;
+        spawnedParticle = Instantiate(particlePrefab, position, Quaternion.identity);
+        ParticleSystem.MainModule psMain = spawnedParticle.GetComponent<ParticleSystem>().main;
+        psMain.startColor = color;
+    }
+
 }

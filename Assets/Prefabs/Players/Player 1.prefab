@@ -50,6 +50,7 @@ GameObject:
   - component: {fileID: 1517608309945946326}
   - component: {fileID: 6970589309074142731}
   - component: {fileID: 5230307005829878740}
+  - component: {fileID: 5188159323171647673}
   m_Layer: 0
   m_Name: Player 1
   m_TagString: Untagged
@@ -188,8 +189,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f2515b12a8231047807b8a59780930e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnX: -5
-  spawnY: -3
   colourOne: 0
   colourTwo: 1
   grounded: 0
@@ -329,6 +328,22 @@ MonoBehaviour:
   jumpHeight: 10
   gravityScale: 2.6
   fallingGravityScale: 3.5
+--- !u!114 &5188159323171647673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1867954449473211357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b5cc1efd8797294aad934f819c4f325, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnX: -4.5
+  spawnY: -3
+  dieParticlePrefab: {fileID: 6722134613666950898, guid: 82665c6691bbcfc4fa9e8f1dad428997, type: 3}
+  spawnDelay: 3
 --- !u!1 &3086498377297518886
 GameObject:
   m_ObjectHideFlags: 0
@@ -399,7 +414,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 5.912652
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -480,7 +495,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 5038044449644697284}
-  x: -5
+  x: -4.5
   z: -10
   offset: 1
 --- !u!1 &6322951791560880704

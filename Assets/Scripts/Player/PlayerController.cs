@@ -10,10 +10,6 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class PlayerController : MonoBehaviour
 {
-    [Header("Spawn")]
-    [SerializeField] private float spawnX = -5;
-    [SerializeField] private float spawnY = -3;
-
     [Header("Blocks")]
     [Tooltip("First map colour player may control")]
     [SerializeField] private Colour colourOne = Colour.Red;
@@ -37,12 +33,6 @@ public class PlayerController : MonoBehaviour
         playerCollision = GetComponent<PlayerCollision>();
     }
 
-    private void Awake() 
-    {
-        // Take player to spawn location
-        transform.position = new Vector2(spawnX, spawnY);
-    }
-
     void FixedUpdate() 
     {
         grounded = playerCollision.IsGrounded();
@@ -60,8 +50,8 @@ public class PlayerController : MonoBehaviour
         MapManager.instance.SwitchTileState(colourTwo);
 
         // ColourTwo will be activated first. Thus, trigger its particles
-        ParticleSpawner.instance.SpawnParticle(colourOne);
-        ParticleSpawner.instance.SpawnParticle(colourTwo);
+        ParticleSpawner.instance.SpawnParticlesAtBlocks(colourOne);
+        ParticleSpawner.instance.SpawnParticlesAtBlocks(colourTwo);
     }
 
     public void Movement(float horizontalInput) {
