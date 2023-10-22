@@ -33,11 +33,16 @@ public class PlayerController : MonoBehaviour
     private bool grounded = false;
 
     [Header("Gravity")]
-    
     [SerializeField] private float gravityScale = 10f;
 
     [Tooltip("How fast the player falls, separate from their gravity when jumping")]
     [SerializeField] private float fallingGravityScale = 20f;
+
+    // Size from which the player may die.
+    // https://www.youtube.com/watch?v=jxCVHBMdTWo
+    public Vector2 deathBoxSize;
+    // Center of the death box
+    public Transform deathBoxCenter;
 
     private Animator animator;
     private Rigidbody2D rb;
@@ -47,7 +52,6 @@ public class PlayerController : MonoBehaviour
 
     private bool facingRight = true;
     
-
     private void Start() {
         animator = GetComponent<Animator>();
         playerInput = GetComponent<PlayerInput>();
@@ -58,8 +62,6 @@ public class PlayerController : MonoBehaviour
     private void Awake() {
         // Take player to spawn location
         transform.position = new Vector2(spawnX, spawnY);
-        // Adjust groundCheckpoint
-        
     }
 
     private void JumpHandle() {
@@ -100,6 +102,7 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate() {
         grounded = IsGrounded();
         Movement();
+        Debug.Log(isSuffocated());
     }
 
     void Update() {
@@ -107,6 +110,7 @@ public class PlayerController : MonoBehaviour
         GravityHandle();
         BlockSwapHandle();
         animator.SetBool("Rising", rb.velocity.y > 0);
+        animator.SetBool("Falling", !grounded && !(rb.velocity.y > 0));
     }
 
     private void Movement() {
@@ -123,7 +127,7 @@ public class PlayerController : MonoBehaviour
         // Sets the speed of the animation
         animator.SetFloat("Analogue", horizontalInput);
 
-        animator.SetBool("Falling", !grounded);
+        
 
         if (!grounded) {
             // Move the player Character slower in the air
@@ -157,21 +161,16 @@ public class PlayerController : MonoBehaviour
         return Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, groundLayer);
     }
 
-    void OnDrawGizmosSelected() {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(groundCheckPoint.position, groundCheckRadius);
+    // Checks if player has landed themself inside a block.
+    // https://stackoverflow.com/questions/51921502/how-to-boxcast-without-moving-the-box
+    private bool isSuffocated()
+    {
+        return Physics2D.OverlapBox(deathBoxCenter.position, deathBoxSize, 0, groundLayer);
     }
 
-    //https://www.youtube.com/watch?v=P_6W-36QfLA
-    //private void OnCollisionEnter2D(Collision2D other) {
-    //    if (other.gameObject.CompareTag("Ground")) {
-    //        grounded = true;
-    //    }
-    //}
-    
-    //private void OnCollisionExit2D(Collision2D other) {
-    //    if (other.gameObject.CompareTag("Ground")) {
-    //        grounded = false;
-    //    }
-    //}
+    //https://www.youtube.com/watch?v=jxCVHBMdTWo
+    void OnDrawGizmosSelected() {
+        Gizmos.color = Color.red;
+        Gizmos.DrawCube(deathBoxCenter.position, deathBoxSize);
+    }
 }
