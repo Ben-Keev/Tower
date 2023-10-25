@@ -30,6 +30,11 @@ public class PlayerInputHandler : MonoBehaviour
         if (blockSwap) controller.BlockSwap();
     }
 
+    private void PauseHandle()
+    {
+        bool pause = playerInput.actions["Pause"].WasPressedThisFrame();
+    }
+
     private void MovementHandle()
     {
         float horizontalInput = playerInput.actions["Move"].ReadValue<Vector2>().x;
@@ -46,5 +51,6 @@ public class PlayerInputHandler : MonoBehaviour
     {
         BlockSwapHandle();
         JumpHandle();
+        PauseHandle();
     }
 }

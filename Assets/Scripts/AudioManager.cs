@@ -42,4 +42,14 @@ public class AudioManager : MonoBehaviour
     {
         if(PlayerDict[clipKey] != null) sfxSource.PlayOneShot(PlayerDict[clipKey]);
     }
+
+    public void PlayBackgroundWind()
+    {
+        sfxSource.PlayOneShot(backgroundClip);
+    }
+
+    public void StopAudio()
+    {
+        sfxSource.Stop();
+    }
 }

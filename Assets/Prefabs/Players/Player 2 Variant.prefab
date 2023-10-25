@@ -26,11 +26,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3647532279039016441, guid: cc0bbe136a4f460409b2c232719345ba, type: 3}
       propertyPath: colourOne
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3647532279039016441, guid: cc0bbe136a4f460409b2c232719345ba, type: 3}
       propertyPath: colourTwo
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5038044449644697284, guid: cc0bbe136a4f460409b2c232719345ba, type: 3}
       propertyPath: m_RootOrder
