@@ -16,6 +16,9 @@ public class PlayerInputHandler : MonoBehaviour
         controller = GetComponent<PlayerController>();
     }
 
+    /// <summary>
+    /// Waits for Jump input from new input system. Triggers jump.
+    /// </summary>
     private void JumpHandle()
     {
         bool jump = playerInput.actions["Jump"].WasPressedThisFrame();
@@ -23,6 +26,9 @@ public class PlayerInputHandler : MonoBehaviour
         if (jump && controller.grounded) controller.Jump();
     }
 
+    /// <summary>
+    /// Waits for blockswap input from new input system. Triggers blockswap.
+    /// </summary>
     private void BlockSwapHandle()
     {
         bool blockSwap = playerInput.actions["BlockSwap"].WasPressedThisFrame();
@@ -30,11 +36,19 @@ public class PlayerInputHandler : MonoBehaviour
         if (blockSwap) controller.BlockSwap();
     }
 
+    /// <summary>
+    /// Waits for pause input from new input system.
+    /// </summary>
     private void PauseHandle()
     {
         bool pause = playerInput.actions["Pause"].WasPressedThisFrame();
+
+        if (pause) GameManager.instance.Pause();
     }
 
+    /// <summary>
+    /// Waits for movement float from new input system. Triggers movement
+    /// </summary>
     private void MovementHandle()
     {
         float horizontalInput = playerInput.actions["Move"].ReadValue<Vector2>().x;

@@ -21,21 +21,30 @@ public class PlayerCollision : MonoBehaviour
     // Center of the death box
     public Transform deathBoxCenter;
 
-    // Overlapcircle checks if grounded
     // https://github.com/naoisecollins/GD2a-PlayerController/blob/main/Assets/Scripts/RefactoredAdvancedPlayerMovement.cs
+    /// <summary>
+    /// Uses an overlap circle attached to an empty to determine if player is grounded
+    /// </summary>
+    /// <returns>Boolean grounded</returns>
     public bool IsGrounded()
     {
         return Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, groundLayer);
     }
 
+    /// <summary>
+    /// Using an overlap box checks if the player is inside a set of blocks.
+    /// </summary>
+    /// <returns>Boolean suffocated, indicating player is inside blocks</returns>
     public bool IsSuffocated()
     {
         suffocated = Physics2D.OverlapBox(deathBoxCenter.position, deathBoxSize, 0, groundLayer);
         return suffocated;
     }
 
-    // Draws deathbox in unity editor
     //https://www.youtube.com/watch?v=jxCVHBMdTWo
+    /// <summary>
+    /// Draws death box when in unity editor
+    /// </summary>
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;

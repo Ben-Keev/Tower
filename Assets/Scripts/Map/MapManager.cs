@@ -24,6 +24,9 @@ public class MapManager : MonoBehaviour
     // Link each tile to its data, making it accessible to scripts
     private Dictionary<TileBase, TileData> dataFromTiles;
 
+    /// <summary>
+    /// Populate dictionary of tiles as linked to their tile's data.
+    /// </summary>
     private void PopulateDictionary()
     {
         dataFromTiles = new Dictionary<TileBase, TileData>();
@@ -49,7 +52,11 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    // Turn one set of blocks for each player on
+    /// <summary>
+    /// Turn two sets of blocks on by default. Necessary to create swapping effect.
+    /// </summary>
+    /// <param name="colourOne"></param>
+    /// <param name="colourTwo"></param>
     private void initBlocks(Colour colourOne, Colour colourTwo) {
         SwitchTileState(colourOne);
         SwitchTileState(colourTwo);
@@ -63,17 +70,23 @@ public class MapManager : MonoBehaviour
         initBlocks(Colour.Red, Colour.Green);
     }
 
-    // Switch tiles based on colour specified and what state.
     // https://docs.unity3d.com/ScriptReference/Tilemaps.Tilemap.SwapTile.html
+    /// <summary>
+    /// Switch tiles based on colour specified. Checks current state automatically.
+    /// </summary>
+    /// <param name="colour"></param>
     public void SwitchTileState(Colour colour)
     {
+        // Tilemap we modify
         Tilemap map = getTilemapOnColour(colour);
+        // Tilemap's collision
         TilemapCollider2D mapCollision = map.GetComponent<TilemapCollider2D>();
+        // The tile currently in use
         TileBase tileChange = getReferenceTile(map, colour);
+        // The new tile we wish to use
         TileBase tileNew = getInverseTile(tileChange);
-        tileNew = getInverseTile(tileChange);
 
-        // It should never equal null. This is to prevent errors.
+        // It should never equal null. This is to prevent compilation errors.
         if (tileNew != null && tileChange != null)
         {
             map.SwapTile(tileChange, tileNew);
@@ -83,7 +96,11 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    //Returns a tilemap based on a colour. Also used in particlespawner.
+    /// <summary>
+    /// Returns Tilemap based on the enum Colour
+    /// </summary>
+    /// <param name="colour">enum Colour of Tilemap's blocks</param>
+    /// <returns></returns>
     public Tilemap getTilemapOnColour(Colour colour) {
 
         // Using MapData class
@@ -102,8 +119,15 @@ public class MapManager : MonoBehaviour
 
     // Gets reference tile given map and colour
     // https://docs.unity3d.com/ScriptReference/Tilemaps.Tilemap.GetTile.html
+    /// <summary>
+    /// Gets reference tile from world
+    /// </summary>
+    /// <param name="map">Tilemap of colour</param>
+    /// <param name="colour">Colour of blocks being sought</param>
+    /// <returns></returns>
     private TileBase getReferenceTile(Tilemap map, Colour colour) {
         foreach (var tile in tiles) { 
+            // If the tile's data is equal to the colour.
             if (dataFromTiles[tile].colour == colour)
             {
                 // Get active state of tile placed in using a reference tile.
@@ -114,11 +138,15 @@ public class MapManager : MonoBehaviour
             }
         }
 
-        // This should never happen. Added to prevent errors.
+        // This should never happen. Added to prevent compilation errors.
         return null;
     }
 
-    // Gets a tile of inverse active state.
+    /// <summary>
+    /// Gets a tile of inverse active state
+    /// </summary>
+    /// <param name="tileChange">Tile whose state you wish to invert</param>
+    /// <returns>A new tile of inverted action state</returns>
     private TileBase getInverseTile(TileBase tileChange) {
 
         // Prevents error if function is called in a scene without a set of coloured blocks
@@ -142,6 +170,11 @@ public class MapManager : MonoBehaviour
     // https://docs.unity3d.com/2017.2/Documentation/ScriptReference/Tilemaps.Tilemap-cellBounds.html,  https://docs.unity3d.com/ScriptReference/BoundsInt-allPositionsWithin.html
     // https://www.c-sharpcorner.com/article/what-is-the-difference-between-c-sharp-array-and-c-sharp-list/
 
+    /// <summary>
+    /// Gets cellpositions of all blocks of a given enum Colour.
+    /// </summary>
+    /// <param name="colour">Enum colour of blocks</param>
+    /// <returns>List of cellpositions (as opposed to worldpositions)</returns>
     public List<Vector3Int> getBlockCellPositions(Colour colour) {
         
         List<Vector3Int> positions = new List<Vector3Int>();
@@ -161,15 +194,24 @@ public class MapManager : MonoBehaviour
 
     // Converts Cellpositions to worldpositions
     // https://docs.unity3d.com/ScriptReference/Tilemaps.Tilemap.GetCellCenterWorld.html
+    /// <summary>
+    /// Converts cellpositions of blocks to worldpositions. Necessary for calling particles to a block's location.
+    /// </summary>
+    /// <param name="colour">Enum Colour of blocks</param>
+    /// <returns>A list containing worldpositions of each block of enum Colour</returns>
     public List<Vector3> getBlockWorldPositions(Colour colour)
     {
+        // Get tilemap of colour
         Tilemap map = getTilemapOnColour(colour);
+        // Get cell positions of blocks
         List<Vector3Int> listInt = getBlockCellPositions(colour);
+
         List<Vector3> listConvert = new List<Vector3>();
         Vector3 worldposition;
 
         foreach (Vector3Int cellposition in listInt)
         {
+            // Calls method that returns the cell center's position as a world position.
             worldposition = map.GetCellCenterWorld(cellposition);
             listConvert.Add(worldposition);
         }

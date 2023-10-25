@@ -14,16 +14,16 @@ public class PlayerSpawner : MonoBehaviour
     public float spawnDelay;
 
     // For deaths
-    private SpriteRenderer renderer;
+    private SpriteRenderer spriteRender;
     private PlayerInputHandler input;
     private Rigidbody2D rb;
     private PlayerCollision collision;
 
-    private bool dead;
+    public bool dead;
 
     private void Start()
     {
-        renderer = GetComponent<SpriteRenderer>();
+        spriteRender = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         input = GetComponent<PlayerInputHandler>();
         collision = GetComponent<PlayerCollision>();
@@ -40,16 +40,18 @@ public class PlayerSpawner : MonoBehaviour
 
         // You can only die if you're not dead.
         if(!dead)
-        {   
+        {   // Checks suffocation. If yes, die and respawn.
             if (collision.IsSuffocated()) StartCoroutine(DieAndRespawn());
         }
     }
 
-    // It's not a spawn per se, just a reset of values.
+    /// <summary>
+    /// Re-enables the renderer, input, gravity and teleports the player to their spawn location.
+    /// </summary>
     private void Spawn()
     {
         // Enable sprite
-        renderer.enabled = true;
+        spriteRender.enabled = true;
 
         // Enable input
         input.enabled = true;
@@ -60,17 +62,21 @@ public class PlayerSpawner : MonoBehaviour
 
         transform.position = new Vector2(spawnX, spawnY);
 
+        // Alive again!
         dead = !dead;
     }
 
+    /// <summary>
+    /// Makes sprite appear as though it's disappeared. Disables input and gravity and plays particle effects.
+    /// </summary>
     private void Die()
     {
         dead = true;
 
-        if (!dead) AudioManager.instance.PlayPlayerSound("Die");
+        AudioManager.instance.PlayPlayerSound("Die");
 
         // Disable sprite
-        renderer.enabled = false;
+        spriteRender.enabled = false;
 
         // Disable input
         input.enabled = false;
@@ -83,6 +89,10 @@ public class PlayerSpawner : MonoBehaviour
     }
 
     // https://docs.unity3d.com/ScriptReference/WaitForSeconds.html
+    /// <summary>
+    /// A coroutine which respawns the player after a delay
+    /// </summary>
+    /// <returns>N/A</returns>
     IEnumerator DieAndRespawn()
     {
         Die();

@@ -41,6 +41,9 @@ public class PlayerController : MonoBehaviour
         pp.GravityHandle(rb);
     }
 
+    /// <summary>
+    /// Triggers BlockSwap state of two block colours. Plays a sound to indicate so. Triggers particle spawninng at blocks swapped.
+    /// </summary>
     public void BlockSwap()
     {
         AudioManager.instance.PlayPlayerSound("Switch");
@@ -52,6 +55,10 @@ public class PlayerController : MonoBehaviour
         ParticleSpawner.instance.SpawnParticlesAtBlocks(colourTwo);
     }
 
+    /// <summary>
+    /// Moves the player left and right. Triggers flip animation depending on direction faced. Manipulates speed of player on ground and air. Plays footstep sound.
+    /// </summary>
+    /// <param name="horizontalInput">A float between 0 and 1</param>
     public void Movement(float horizontalInput) {
         playerAnimator.WalkAnim(horizontalInput);
         AudioManager.instance.PlayPlayerSound("Footstep");
@@ -70,13 +77,12 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// Adds upward force to player and sends for jump animation
+    /// Adds upward force to player and sends for jump animation. Plays jumping sound.
     /// </summary>
     public void Jump() {
         //https://gamedevbeginner.com/how-to-jump-in-unity-with-or-without-physics/#:~:text=The%20basic%20method%20of%20jumping,using%20the%20Add%20Force%20method.
         // Impulse applies force immediately, creating a jumping motion
         rb.AddForce(Vector2.up * pp.jumpHeight, ForceMode2D.Impulse);
-        //rb.AddForce(Vector2.right * speedGround, ForceMode2D.Impulse);
         playerAnimator.JumpAnim();
         AudioManager.instance.PlayPlayerSound("Jump");
     }

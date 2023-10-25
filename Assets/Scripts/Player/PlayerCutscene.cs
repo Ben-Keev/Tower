@@ -13,6 +13,10 @@ public class PlayerCutscene : MonoBehaviour
         controller = GetComponent<PlayerController>();
     }
 
+    /// <summary>
+    /// Scripted movement of the player during the main menu's cutscene.
+    /// </summary>
+    /// <returns>N/A</returns>
     IEnumerator CutsceneMovement()
     {
         controller.Movement(1);
@@ -20,6 +24,9 @@ public class PlayerCutscene : MonoBehaviour
         controller.Jump();
     }
 
+    /// <summary>
+    /// Initiates player's scripted movements after pressing play. Then loads game after a delay.
+    /// </summary>
     public void PlayCutscene()
     {
         if (!called)

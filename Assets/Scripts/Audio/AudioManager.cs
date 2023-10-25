@@ -38,16 +38,26 @@ public class AudioManager : MonoBehaviour
         PlayerDict = PlayerSet.PopulateDictionary();
     }
 
+    /// <summary>
+    /// Plays a sound OneShot.
+    /// </summary>
+    /// <param name="clipKey">The key of the player sound in the dictionary.</param>
     public void PlayPlayerSound(string clipKey)
     {
         if(PlayerDict[clipKey] != null) sfxSource.PlayOneShot(PlayerDict[clipKey]);
     }
 
+    /// <summary>
+    /// Plays wind sound, called in main menu.
+    /// </summary>
     public void PlayBackgroundWind()
     {
         sfxSource.PlayOneShot(backgroundClip);
     }
 
+    /// <summary>
+    /// Interrupts and ends all audio
+    /// </summary>
     public void StopAudio()
     {
         sfxSource.Stop();

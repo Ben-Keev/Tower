@@ -5,10 +5,13 @@ using UnityEngine;
 public class PlayerAnimator : MonoBehaviour
 {
     private Animator animator;
+    // To check if player is dead
+    private PlayerSpawner spawner;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
+        spawner = GetComponent<PlayerSpawner>();
     }
 
     /// <summary>
@@ -41,13 +44,13 @@ public class PlayerAnimator : MonoBehaviour
     {
         animator.SetBool("Rising", velocityY > 0);
 
-        // Play bump sound effect.
-        if (!grounded && velocityY == 0)
+        // Play bump sound effect. As dying disables velocity, we must also check player is alive.
+        if (!grounded && velocityY == 0 && !spawner.dead)
         AudioManager.instance.PlayPlayerSound("Bump");
 
+        // Continues falling animation while not grounded.
         animator.SetBool("Falling", !grounded && velocityY == 0);
 
-        // Continues falling animation while not grounded.
         animator.SetBool("Grounded", grounded);
     }
 

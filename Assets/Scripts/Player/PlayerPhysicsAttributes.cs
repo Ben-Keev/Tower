@@ -18,6 +18,10 @@ public class PlayerPhysics : MonoBehaviour
     [Tooltip("How fast the player falls, separate from their gravity when jumping")]
     [SerializeField] public float fallingGravityScale = 3.5f;
 
+    /// <summary>
+    /// Affects the player's gravity as they rise and fall.
+    /// </summary>
+    /// <param name="rb">The rigid body of the player</param>
     public void GravityHandle(Rigidbody2D rb)
     {
         // Player is rising, gravity scale is set lower.
