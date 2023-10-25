@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         AudioManager.instance.PlayBackgroundWind();
-        SceneManager.LoadScene("MainMenu");
+        //SceneManager.LoadScene("MainMenu");
     }
 
     public void Pause()

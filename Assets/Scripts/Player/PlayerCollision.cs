@@ -11,6 +11,8 @@ public class PlayerCollision : MonoBehaviour
     [SerializeField] private Transform groundCheckPoint;
     [SerializeField] private float groundCheckRadius = 0.2f;
 
+    [HideInInspector] public bool suffocated = false;
+
     // Size from which the player may die.
     // https://www.youtube.com/watch?v=jxCVHBMdTWo
 
@@ -19,18 +21,17 @@ public class PlayerCollision : MonoBehaviour
     // Center of the death box
     public Transform deathBoxCenter;
 
-    // Overlapcircle checks if grounded,
+    // Overlapcircle checks if grounded
     // https://github.com/naoisecollins/GD2a-PlayerController/blob/main/Assets/Scripts/RefactoredAdvancedPlayerMovement.cs
     public bool IsGrounded()
     {
         return Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, groundLayer);
     }
 
-    // Checks if player has landed themself inside a block using deathbox
-    // https://stackoverflow.com/questions/51921502/how-to-boxcast-without-moving-the-box
     public bool IsSuffocated()
     {
-        return Physics2D.OverlapBox(deathBoxCenter.position, deathBoxSize, 0, groundLayer);
+        suffocated = Physics2D.OverlapBox(deathBoxCenter.position, deathBoxSize, 0, groundLayer);
+        return suffocated;
     }
 
     // Draws deathbox in unity editor

@@ -37,9 +37,10 @@ public class PlayerSpawner : MonoBehaviour
 
     private void FixedUpdate()
     {
+
         // You can only die if you're not dead.
         if(!dead)
-        {
+        {   
             if (collision.IsSuffocated()) StartCoroutine(DieAndRespawn());
         }
     }

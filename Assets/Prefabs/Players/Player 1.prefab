@@ -189,7 +189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f2515b12a8231047807b8a59780930e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colourOne: 2
+  colourOne: 0
   colourTwo: 3
   grounded: 0
 --- !u!114 &5338474647228028454
@@ -285,8 +285,9 @@ MonoBehaviour:
     m_Bits: 8
   groundCheckPoint: {fileID: 9212137374291796224}
   groundCheckRadius: 0.2
+  suffocated: 0
   deathBoxSize: {x: 0.3, y: 0.78}
-  deathBoxCenter: {fileID: 9098911060060733701}
+  deathBoxCenter: {fileID: 5038044449644697284}
 --- !u!114 &1517608309945946326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -325,7 +326,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speedGround: 5
   speedFractionAir: 0.75
-  jumpHeight: 10
+  jumpHeight: 10.4
   gravityScale: 2.6
   fallingGravityScale: 3.5
 --- !u!114 &5188159323171647673
@@ -340,8 +341,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b5cc1efd8797294aad934f819c4f325, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnX: -4.5
-  spawnY: -3
+  spawnX: -5
+  spawnY: -3.5
   dieParticlePrefab: {fileID: 6722134613666950898, guid: 82665c6691bbcfc4fa9e8f1dad428997, type: 3}
   spawnDelay: 3
 --- !u!1 &3086498377297518886
@@ -389,7 +390,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.03137255, g: 0.007843138, b: 0.09411765, a: 0}
+  m_BackGroundColor: {r: 0.05490196, g: 0.05490196, b: 0.05490196, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

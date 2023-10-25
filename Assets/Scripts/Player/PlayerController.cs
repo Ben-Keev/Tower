@@ -5,9 +5,6 @@ using UnityEngine;
 // Import new input system
 using UnityEngine.InputSystem;
 
-/// <summary>
-/// 
-/// </summary>
 public class PlayerController : MonoBehaviour
 {
     [Header("Blocks")]
