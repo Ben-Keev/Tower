@@ -17,7 +17,7 @@ Button West - Swap Blocks
 Analogue Stick - Move/Navigate Menus
 Start - Pause
 
-Youtube Link:
+Youtube Link: https://youtu.be/p3_kuG1-qqk
 
 Assets credited:
 Outdoor tileset
